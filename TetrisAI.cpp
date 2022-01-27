@@ -1,7 +1,8 @@
 ﻿#include"TetrisAI.h"
-#include <iostream>
 #include <string>
 #include<vector>
+#define Tetris_AI_VERSION 1.01
+
 TetrisAI::TetrisAI(int width, int height)
 {
 	fieldHeight = height;
@@ -87,9 +88,14 @@ int TetrisAI::NumberPlusPlus(int number)
 }
 
 //获取AI对象
- TetrisAI* TetrisAI::GetTetrisAIObject(int width, int height)
+// TetrisAI* TetrisAI::GetTetrisAIObject(int width, int height)
+//{
+//	return new TetrisAI(width,height);
+//}
+
+TetrisAIInterface* TetrisAI::CreateInterface(int i, int j)
 {
-	return new TetrisAI(width,height);
+	return new TetrisAI(i,j);
 }
 
 //设置当前棋盘的状态(具体的传参，留待以后讨论)
@@ -120,6 +126,11 @@ void TetrisAI::SetShapeCurrentStat(TetrisType shape)
 void TetrisAI::SetAutoRea(bool flag_auto_reasoning)
 {
 	//暂不实现
+}
+
+std::string TetrisAI::GetAIVersion()
+{
+	return std::string("Tetris AI version : "+std::to_string(Tetris_AI_VERSION));
 }
 
 
@@ -438,4 +449,10 @@ MaxScorePosition TetrisAI::GetMaxScorePosition()
 		RotateShape();
 	}
 	return maxscoreposition;
+}
+
+TetrisAIInterface * GetTetrisAIObject(int i, int j)
+{
+	std::cout << "hell in GetTetrisAIObject" << std::endl;
+	return new TetrisAI(i,j);
 }

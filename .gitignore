@@ -1,3 +1,7 @@
 x64/
 LOG_UTILS.cpp
 LOG_UTILS.h
+Release/
+WindowsDLL.rar
+TetrisAI.dll
+CompressWindowsDLL.bat

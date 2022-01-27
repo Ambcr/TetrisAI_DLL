@@ -23,5 +23,8 @@
     <ClInclude Include="TetrisAI.h">
       <Filter>源文件</Filter>
     </ClInclude>
+    <ClInclude Include="TetrisAIInterface.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

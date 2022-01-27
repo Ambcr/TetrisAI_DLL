@@ -2,55 +2,37 @@
 #define _TETRISAI_H_
 
 #ifdef DLL_BUILD
-#define DLL_EXPORT __declspec(dllexport)
+#define DLL_EXPORT _declspec(dllexport)
 #else
-#define DLL_EXPORT __declspec(dllimport)
+#define DLL_EXPORT _declspec(dllimport)
 #endif
+#include "TetrisAIInterface.h"
 
-typedef enum DLL_EXPORT {
-	Tetris_I=0,
-	Tetris_Z,
-	Tetris_S,
-	Tetris_T,
-	Tetris_L,
-	Tetris_J,
-	Tetris_O
-}TetrisType;
 
-typedef struct {
-	int left;
-	int right;
-}TetrisShapeRange;
-typedef struct {
-	int x;
-	int y;
-}TetrisPoint;
-
-typedef struct DLL_EXPORT {
-	int dx;//最佳横坐标
-	int rotate;//旋转次数v 
-}MaxScorePosition;
-
-class DLL_EXPORT TetrisAI
+class TetrisAI:public TetrisAIInterface
 {
 public:
 	TetrisAI(int width,int height);
 	~TetrisAI();
 	
 	//获取AI对象
-	static TetrisAI* GetTetrisAIObject(int width,int height);
+	//static TetrisAI* GetTetrisAIObject(int width,int height);
+	static TetrisAIInterface* CreateInterface(int i, int j);
 
 	//设置当前棋盘的状态(具体的传参，留待以后讨论)
-	void SetFieldCurrentStat(int** field);
+	virtual void SetFieldCurrentStat(int** field);
 
 	//设置当前形态状态
-	void SetShapeCurrentStat(TetrisType shape);
+	virtual void SetShapeCurrentStat(TetrisType shape);
 
 	//获取当前最佳路径
-	MaxScorePosition GetMaxScorePosition();
+	virtual MaxScorePosition GetMaxScorePosition();
 
 	//开启自动推理
-	void SetAutoRea(bool flag_auto_reasoning);
+	virtual void SetAutoRea(bool flag_auto_reasoning);
+
+	//获取版本信息
+	virtual std::string GetAIVersion();
 
 private:
 	int fieldWidth;
@@ -132,6 +114,9 @@ private:
 
 
 };
+
+//extern "C" DLL_EXPORT TetrisAI * GetTetrisAIObject(int i, int j);
+
 
 #endif // !_TETRISAI_H_
 
